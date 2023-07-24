@@ -1,5 +1,6 @@
 package cn.blogss.nfc
 
+import android.nfc.NfcAdapter
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import cn.blogss.nfc.ui.theme.AndroidnfcdemoTheme
 
 class MainActivity : ComponentActivity() {
+    lateinit var nfcAdapter: NfcAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -23,6 +26,20 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
+        initData()
+    }
+
+    private fun initData() {
+        nfcAdapter = NfcAdapter.getDefaultAdapter(applicationContext)
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }
 
