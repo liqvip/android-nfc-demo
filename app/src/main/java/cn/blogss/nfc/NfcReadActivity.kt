@@ -16,8 +16,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import cn.blogss.nfc.ui.theme.AndroidnfcdemoTheme
 
@@ -39,16 +39,6 @@ class NfcReadActivity: NfcBaseActivity() {
     }
 
     private fun initData() {
-        if(nfcAdapter == null) {
-            Toast.makeText(this, "该设备不支持 nfc", Toast.LENGTH_LONG).show();
-            finish()
-            return
-        }
-
-        if(!nfcAdapter!!.isEnabled) {
-            startActivity(Intent(Settings.ACTION_NFC_SETTINGS))
-            Toast.makeText(this, "设备未开启 nfc", Toast.LENGTH_LONG).show()
-        }
         readNfcTagData(intent)
     }
 
@@ -107,15 +97,16 @@ class NfcReadActivity: NfcBaseActivity() {
 @Composable
 fun nfcReadView(){
     Column(
-        verticalArrangement = Arrangement.Center,){
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        ){
         Text(
             text = "请将 nfc 贴纸靠近手机背面",
-            color = Color.White,
         )
     }
 }
 
-@Preview
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun nfcReadPreView(){
     nfcReadView()

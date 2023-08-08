@@ -34,8 +34,17 @@ class MainActivity : NfcBaseActivity() {
                 }
             }
         }
-    }
+        if(nfcAdapter == null) {
+            Toast.makeText(this, "该设备不支持 nfc", Toast.LENGTH_LONG).show();
+            finish()
+            return
+        }
 
+        if(!nfcAdapter!!.isEnabled) {
+            startActivity(Intent(Settings.ACTION_NFC_SETTINGS))
+            Toast.makeText(this, "设备未开启 nfc", Toast.LENGTH_LONG).show()
+        }
+    }
 
 }
 
