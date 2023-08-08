@@ -19,4 +19,9 @@
         <tech>android.nfc.tech.NfcV</tech>
         <tech>android.nfc.tech.NdefFormatable</tech>
     </tech-list>
+
+    <tech-list>
+        <tech>android.nfc.tech.NfcV</tech>
+        <tech>android.nfc.tech.Ndef</tech>
+    </tech-list>
 </resources>

@@ -3,6 +3,7 @@ package cn.blogss.nfc
 import android.content.Intent
 import android.nfc.NfcAdapter
 import android.nfc.Tag
+import android.nfc.tech.Ndef
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -33,67 +34,16 @@ class MainActivity : NfcBaseActivity() {
                 }
             }
         }
-        initData()
     }
 
-    private fun initData() {
-        if(nfcAdapter == null) {
-            Toast.makeText(this, "该设备不支持 nfc", Toast.LENGTH_LONG).show();
-            finish()
-            return
-        }
 
-        if(!nfcAdapter!!.isEnabled) {
-            startActivity(Intent(Settings.ACTION_NFC_SETTINGS))
-            Toast.makeText(this, "设备未开启 nfc", Toast.LENGTH_LONG).show()
-        }
-        readNfcTagData(intent)
-    }
-
-    /**
-     * 读取 nfc 数据
-     */
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        readNfcTagData(intent)
-
-    }
-
-    private fun readNfcTagData(intent: Intent?) {
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED == intent?.action ||
-            NfcAdapter.ACTION_TECH_DISCOVERED == intent?.action ||
-            NfcAdapter.ACTION_TAG_DISCOVERED == intent?.action
-        ) {
-            val tag: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
-            val id = bytesToHexString(tag!!.id)
-            Log.i(TAG, "nfc id: $id")
-
-            // 获取tag 中的数据信息
-            val tagTechList = tag.techList
-            if (tagTechList != null && tagTechList.isNotEmpty()) {
-                val sb = StringBuilder()
-                for (i in tagTechList) {
-                    sb.append("*").append(i).append("*").append("\n")
-                }
-                Log.i(TAG, "tagTechList: $sb}")
-            }
-        }
-    }
-
-    private fun bytesToHexString(bytes: ByteArray): String {
-        val sb = StringBuilder()
-        for (b in bytes) {
-            sb.append(String.format("%02x", b))
-        }
-        return sb.toString()
-    }
 }
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-            text = "Hello $name!",
-            modifier = modifier
+        text = "Hello $name!",
+        modifier = modifier
     )
 }
 

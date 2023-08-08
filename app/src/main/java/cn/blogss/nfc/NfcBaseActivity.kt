@@ -20,7 +20,7 @@ open class NfcBaseActivity: ComponentActivity() {
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         filters = arrayOf(IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED))
         techLists = arrayOf(arrayOf("android.nfc.tech.NfcV",
-            "android.nfc.tech.NdefFormatable"))
+            "android.nfc.tech.Ndef"))
     }
 
     /**
